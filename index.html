@@ -1,80 +1,56 @@
 <!DOCTYPE html>
-<html data-dark="on">
+<html lang="en">
 <head>
-    <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="styles/style.css">
-	<script type="text/javascript" async src="scripts/scroll.js"></script>
-	<script type="text/javascript" async src="scripts/aos.js"></script>
-	<script type="text/javascript" async src="scripts/myclass-carousel.js"></script>
+	<!-- Metadata for SPA navigation -->
+	<meta name="name" content="index">
+	<script type="text/javascript" defer src="Scripts/index.js"></script>
+	<script type="text/javascript" defer src="Scripts/god.js"></script>
+	
+	<link rel="stylesheet" type="text/css" href="Compiled Styles/base.css">
+	<title data-role="pproperty">Homepage</title>
 </head>
 <body>
-    <aside>
-
-    </aside>
-    <div class="frame" id="home">
-		<div id="home-container">
-			<div id="home-class">
-				<div>
-					<span>X RPL 1</span>
-					<br>
-					<span>SMK TELKOM 1 Medan</span>
-				</div>
-			</div>
-			<hr>
-			<div id="home-me">
-				<span>My name's <strong>Syahsabili Fithra Nasution</strong></span>
-				<br>
-				<span>and I am a programmer, I guess</span>
-			</div>
-        </div>
-    </div>
-    <div class="frame aos-observe" id="skills">
-		<div id="skillsTitle">
-			<span>My Skills</span>
-            <hr>
-        </div>
-        <div id="skillsContainer">
-			<div class="skill">
-                <div>
-                    <img src="./assets/C++.png" alt="C++">
-                </div>
-				<span>C++</span>
-			</div>
-            <div class="skill">
-                <div>
-					<img src="./assets/HCJ.png" alt="Web Dev">
-                </div>
-                <span>Web Development</span>
-            </div>
-            <div class="skill">
-                <div>
-					<img src="./assets/Lua.png" alt="Lua">
-                </div>
-                <span>Lua</span>
-            </div>
-        </div>
+	<link type="text/css" rel="stylesheet" href="Compiled Styles/index.css">
+	<div class="w-full h-full absolute z-[2] grid absolute bg-black [transition:.25s_opacity_ease-out,visibility_.25s]" id="welcome-page">
+		<h1 class="place-self-center text-8xl"></h1>
+		<span class="justify-self-center absolute self-end text-gray-500 opacity-0 animate-[1s_ctc-animation_.75s_ease-out_alternate_infinite] mb-5">Click to continue...</span>
 	</div>
-	<div class="frame aos-observe" id="myclass">
-		<div id="myclass-title">
-			<span>An Overview of X RPL 1</span>
-			<hr>
-		</div>
-		<div id="myclass-carousel">
-			<div class="myclass-navigation">
-				<div></div>
+	<div class="top-container top-container-active flex" id="content">
+		<aside class="border-l-transparent rounded-r-3xl"> <!-- Navigation Menu -->
+			<div> <!-- Navigation Items Wrapper -->
+				<button href="#home" class="nav-active [transition:.1s_color_ease-out] text-neutral-400 hover:text-neutral-700">Home</button>
+				<button href="#who" class="[transition:.1s_color_ease-out] text-neutral-400 hover:text-neutral-700">About</button>
 			</div>
-			<div id="myclass-content">
-				<div id="myclass-image" style="background-image: url('assets/myclass/1.jpg')" alt="Loading">
-					<!-- DELIBERATELY EMPTY -->
-				</div>
-				<div id="myclass-description">
-					<span>Me Eating</span>
+		</aside>
+		<div id="acontent" class="overflow-y-scroll h-screen w-full [scrollbar-color:#FFF_transparent]"> <!-- Actual Content -->
+			<div class="h-screen w-full grid intersection-observe" id="home" data-intersectionRatio="0.5" data-intersectionActions="0" data-navigationIndex="0" data-intersectionOnce='0'>
+				<div class="h-full w-11/12 flex place-self-center items-center justify-between">
+					<div id="home-text">
+						<span>Welcome!</span>
+						<span class="text-3xl">My name is Syahsabili Fithra Nasution</span>
+					</div>
+					<div id="home-img">
+						<img class="rounded" src="Assets/Me.png">
+					</div>
 				</div>
 			</div>
-			<div class="myclass-navigation">
-				<div></div>
+			<div class="h-screen w-full grid intersection-observe" id="who" data-intersectionRatio="0.5" data-intersectionActions="01" data-navigationIndex="1" data-intersectionOnce='0'>
+				<div class="w-4/5 h-4/5 place-self-center grid place-items-center grid-rows-[1fr_2fr_1fr] opacity-0 translate-y-[5%]">
+					<div class="text-6xl font-bold">
+						<span>WHO AM I?</span>
+					</div>
+					<div class="text-5xl text-center leading-relaxed p-5 bg-neutral-900 rounded-3xl">
+						<span>I am a man of many interest.</span>
+						<br>
+						<span>One of them is <span id="interest">Computer Science</span>.</span>
+					</div>
+					<div class="place-self-end text-1xl">
+						<button id="moreaboutme" class="text-neutral-600 hover:text-neutral-300 [transition:.1s_color_ease-out]">more about me.</button>
+					</div>
+				</div>
 			</div>
 		</div>
 	</div>
 </body>
 </html>
+	

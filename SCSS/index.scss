@@ -1,0 +1,189 @@
+@tailwind base;
+@tailwind utilities;
+
+@layer base {
+    ::selection {
+        @apply text-black bg-white;
+    }
+
+    body {
+        @apply m-0 w-full h-screen overflow-hidden text-white bg-black font-mono [transition:.25s_opacity_ease-out];
+    }
+
+    button {
+        @apply cursor-pointer text-gray-500;
+    }
+}
+
+body {
+    &.loading {
+        animation: .25s body_loading ease-out forwards;
+
+        @keyframes body_loading {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0;
+            }
+        }
+    }
+}
+
+
+@layer utilities {
+    .top-container {
+        @apply w-full absolute bg-black;
+    }
+    
+    .top-container-active {
+        @apply z-[1];
+    }
+
+    .nav-active {
+        @apply text-white;
+    }
+    
+    @keyframes ctc-animation {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
+    }
+}
+
+#welcome-page {
+    &.hide {
+        @apply opacity-0 invisible;
+    }
+}
+
+#content.show > aside {
+    @apply opacity-100 translate-x-0;
+}
+
+#content {
+    height: 100vh;
+    display: flex;
+}
+
+#acontent {
+    width: 90%;
+    overflow-y: scroll;
+}
+
+#acontent::-webkit-scrollbar {
+    @apply w-[0.5vw] bg-transparent;
+}
+
+#acontent::-webkit-scrollbar-thumb {
+    @apply rounded-3xl bg-white transition-[background-color] duration-200;
+}
+
+#acontent::-webkit-scrollbar-thumb:hover {
+    @apply bg-zinc-600;
+}
+
+/* Navigation Menu for #content */
+aside {
+    --border-radius: 25px;
+    width: 10%;
+    height: 80vh;
+    align-self: center;
+    justify-self: start;
+    background-color: var(--bg-color);
+    border: 1px solid #FFF;
+    border-left-width: 0px;
+    border-top-right-radius: var(--border-radius);
+    border-bottom-right-radius: var(--border-radius);
+
+    transform: translateX(-100%);
+    transition: .5s transform ease-out, .5s opacity ease-out;
+
+    @apply 2xl:border-2;
+}
+
+/* Navigation Menu Items Container */
+aside > div {
+    @apply flex flex-col items-center mt-[20%] mr-[12.5px] gap-y-2;
+}
+
+aside > div > button {
+    @apply opacity-100 text-4xl cursor-pointer text-neutral-500 bg-transparent [transition:.1s_color_ease-out] border-transparent; 
+}
+
+.cframe {
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+}
+
+.content-wrapper {
+    width: 90%;
+    height: 85%;
+    place-self: center;
+}
+
+#home {
+    &.show {
+        #home {
+            > .content-wrapper {
+                @apply translate-y-0;
+            }
+        }
+    }
+
+    > .content-wrapper {
+        @apply flex items-center translate-y-[5%] justify-between [transition:.5s_transform_ease-out];
+    }
+
+    #home-text {
+        @apply flex flex-col;
+
+        > span:first-child {
+            @apply text-4xl leading-relaxed font-bold;
+        }
+    }
+
+    #home-img {
+        @apply w-2/5 h-4/5 relative;
+
+        > img {
+            @apply max-w-full max-h-full absolute;
+        }
+    }
+}
+
+#who {
+    &.intersection-animate {
+        > div {
+            @apply opacity-100 translate-y-0;
+        }
+    }
+
+    > div {
+        @apply grid place-items-center opacity-0 translate-y-[5%] grid-rows-[1fr_2fr_1fr] [transition:1s_transform,1s_opacity];
+    }
+
+    #who-title {
+        @apply text-4xl font-bold;
+    }
+
+    #who-content {
+        @apply text-2xl text-center bg-neutral-400 p-[2.5%] rounded-xl;
+    }
+
+    #who-more {
+        @apply opacity-70 place-self-end [transition:.1s_opacity];
+
+        &:hover {
+            @apply opacity-100;
+        }
+
+        > a {
+            color: inherit !important; /* Override a:visited default style */
+        }
+    }
+}
