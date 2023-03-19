@@ -1,0 +1,52 @@
+::selection {
+    @apply text-black bg-white;
+}
+
+button {
+    @apply cursor-pointer text-gray-500;
+
+}
+
+.nav-active {
+    @apply text-white;
+}
+
+/* For "Click to continue..." effect */
+@keyframes ctc-animation {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+#welcome-page.hide {
+    @apply opacity-0 invisible;
+}
+
+#acontent {
+    &::webkit-scrollbar {
+        @apply w-[0.5vw] bg-transparent;
+
+        &-thumb {
+            @apply rounded-3xl bg-white transition-[background-color] duration-200;
+
+            &:hover {
+                @apply bg-zinc-600;
+            }
+        }
+    }
+}
+
+#who {
+    &.intersection-animate {
+        > div {
+            @apply opacity-100 translate-y-0;
+        }
+    }
+}
+
+#who.intersection-animate > div {
+    @apply opacity-100 translate-y-0;
+}

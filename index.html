@@ -6,36 +6,39 @@
 	<script type="text/javascript" defer src="Scripts/index.js"></script>
 	<script type="text/javascript" defer src="Scripts/god.js"></script>
 	
-	<link rel="stylesheet" type="text/css" href="Compiled Styles/base.css">
+	<link rel="stylesheet" type="text/css" href="Styles/Compiled/base.css">
 	<title data-role="pproperty">Homepage</title>
 </head>
 <body>
-	<link type="text/css" rel="stylesheet" href="Compiled Styles/index.css">
+	<link type="text/css" rel="stylesheet" href="Styles/Compiled/index.css">
 	<div class="w-full h-full absolute z-[2] grid absolute bg-black [transition:.25s_opacity_ease-out,visibility_.25s]" id="welcome-page">
 		<h1 class="place-self-center text-8xl"></h1>
 		<span class="justify-self-center absolute self-end text-gray-500 opacity-0 animate-[1s_ctc-animation_.75s_ease-out_alternate_infinite] mb-5">Click to continue...</span>
 	</div>
-	<div class="top-container top-container-active flex" id="content">
-		<aside class="border-l-transparent rounded-r-3xl"> <!-- Navigation Menu -->
-			<div> <!-- Navigation Items Wrapper -->
-				<button href="#home" class="nav-active [transition:.1s_color_ease-out] text-neutral-400 hover:text-neutral-700">Home</button>
-				<button href="#who" class="[transition:.1s_color_ease-out] text-neutral-400 hover:text-neutral-700">About</button>
+	<div class="h-screen top-container w-full absolute bg-black flex" id="content">
+		<!-- Navigation Bar -->
+		<aside class="border-l-transparent rounded-r-3xl w-[10%] h-[80vh] self-center transform-x-100 [transition:.5s_transform_ease-out,.5s_opacity_ease-out] 2xl:border-2">
+			<!-- Navigation Items Wrapper -->
+			<div class="flex flex-col items-center mt-[20%] mr-[12.5px] gap-y-2">
+				<button href="#home" class="nav-active [opacity-100 text-4xl cursor-pointer hover:text-neutral-700 text-neutral-400 bg-transparent [transition:.1s_color_ease-out] border-transparent">Home</button>
+				<button href="#who" class="opacity-100 text-4xl cursor-pointer hover:text-neutral-700 text-neutral-400 bg-transparent [transition:.1s_color_ease-out] border-transparent">About</button>
 			</div>
 		</aside>
-		<div id="acontent" class="overflow-y-scroll h-screen w-full [scrollbar-color:#FFF_transparent]"> <!-- Actual Content -->
+		<!-- Actual Content -->
+		<div id="acontent" class="overflow-y-scroll h-screen w-full [scrollbar-color:#FFF_transparent]">
 			<div class="h-screen w-full grid intersection-observe" id="home" data-intersectionRatio="0.5" data-intersectionActions="0" data-navigationIndex="0" data-intersectionOnce='0'>
 				<div class="h-full w-11/12 flex place-self-center items-center justify-between">
-					<div id="home-text">
-						<span>Welcome!</span>
+					<div id="home-text" class="flex flex-col">
+						<span class="text-4xl leading-relaxed font-bold">Welcome!</span>
 						<span class="text-3xl">My name is Syahsabili Fithra Nasution</span>
 					</div>
-					<div id="home-img">
-						<img class="rounded" src="Assets/Me.png">
+					<div id="home-img" class="w-2/5 h-4/5 relative">
+						<img class="rounded max-w-full max-h-full absolute" src="Assets/Me.png">
 					</div>
 				</div>
 			</div>
 			<div class="h-screen w-full grid intersection-observe" id="who" data-intersectionRatio="0.5" data-intersectionActions="01" data-navigationIndex="1" data-intersectionOnce='0'>
-				<div class="w-4/5 h-4/5 place-self-center grid place-items-center grid-rows-[1fr_2fr_1fr] opacity-0 translate-y-[5%]">
+				<div class="w-4/5 h-4/5 place-self-center grid place-items-center grid-rows-[1fr_2fr_1fr] opacity-0 translate-y-[5%] [transition:1s_transform,1s_opacity]">
 					<div class="text-6xl font-bold">
 						<span>WHO AM I?</span>
 					</div>
