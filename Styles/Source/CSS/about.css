@@ -1,0 +1,42 @@
+#title {
+    @apply animate-[.5s_titleShow_ease-out_forwards] translate-y-[15%] opacity-0;
+}
+
+#title button.active {
+    @apply pointer-events-auto;
+}
+
+#title button.active:hover {
+    @apply bg-white text-black;
+}
+
+.aboutContentWrapper {
+    @apply w-full h-screen grid;
+}
+
+.aboutContentContainer {
+    @apply w-[80%] h-[80%] place-self-center flex flex-col gap-y-10 justify-center;
+}
+
+.personalInfo {
+    @apply flex flex-col translate-y-[-10%] opacity-0;
+}
+
+.personalInfoName {
+    @apply text-2xl text-neutral-500;
+}
+
+.personalInfoContent {
+    @apply text-4xl text-neutral-100;
+}
+
+.skill {
+    @apply flex flex-col;
+}
+
+@keyframes titleShow {
+    to {
+        opacity: 1;
+        transform: translateY(0%);
+    }
+}

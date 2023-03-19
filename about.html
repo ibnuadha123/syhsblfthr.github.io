@@ -7,7 +7,7 @@
     <link rel="stylesheet" type="text/css" href="Styles/Compiled/base.css">
     <title>About Me</title>
 </head>
-<body>
+<body data-location="about">
     <link rel="stylesheet" type="text/css" href="Styles/Compiled/about.css">
     <div class="flex w-full h-full">
         <div class="w-1/2 h-full grid relative">
@@ -15,10 +15,63 @@
                 <button class="">HOME</button>
                 <button class="">PORTFOLIO</button>
             </div>
-            <div class="justify-self-center flex flex-col gap-y-4 self-center">
+            <div id="title" class="justify-self-center flex flex-col gap-y-4 self-center items-center">
                 <span class="text-7xl text-center">About Me</span>
-                <hr>
+                <hr class="w-4/5">
                 <span class="text-5xl text-center">Personal Information</span>
+                <div class="grid grid-cols-[2fr_1fr_1fr_2fr] gap-x-10">
+                    <div></div>
+                    <button class="content-navigation opacity-30 border border-white p-4 transition-colors pointer-events-none">PREVIOUS</button>
+                    <button class="content-navigation active border border-white p-4 transition-colors">NEXT</button>
+                    <div></div>
+                </div>
+            </div>
+        </div>
+        <div class="w-1/2 h-screen grid" id="aboutContents">
+            <div class="aboutContentWrapper">
+                <div class="aboutContentContainer">
+                    <div class="personalInfo">
+                        <span class="personalInfoName">Name</span>
+                        <span class="personalInfoContent">Syahsabili Fithra Nasution</span>
+                    </div>
+                    <div class="personalInfo">
+                        <span class="personalInfoName">Birthdate</span>
+                        <span class="personalInfoContent">September 21, 2007</span>
+                    </div>
+                    <div class="personalInfo">
+                        <span class="personalInfoName">Current School</span>
+                        <span class="personalInfoContent">SMK Telkom Medan 1</span>
+                    </div>
+                    <div class="personalInfo">
+                        <span class="personalInfoName">Current Status</span>
+                        <span class="personalInfoContent">Maidenless &#x1F62D;</span>
+                    </div>
+                </div>
+            </div>
+            <div class="aboutContentWrapper">
+                <div class="aboutContentContainer">
+                    <div class="skill">
+                        <span class="text-4xl">C/C++</span>
+                        <div class="border border-white rounded">
+                            <div class="w-[60%] h-[1.5rem] bg-white"></div>
+                        </div>
+                        <span class="self-end">60/100</span>
+                    </div>
+                    <div class="skill">
+                        <span class="text-4xl">JavaScript</span>
+                        <div class="border border-white rounded">
+                            <div class="w-[70%] h-[1.5rem] bg-white"></div>
+                        </div>
+                        <span class="self-end">70/100</span>
+                    </div>
+                    <div class="skill">
+                        <span class="text-4xl">C/C++</span>
+                        <div class="border border-white rounded">
+                            <div class="w-[60%] h-[1.5rem] bg-white"></div>
+                        </div>
+                        <span class="self-end">60/100</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

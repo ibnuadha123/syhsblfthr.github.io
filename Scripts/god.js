@@ -5,13 +5,18 @@ const head = document.head;
 const body = document.body;
 
 class God {
+    #location;
     #dictionary;
     #instance;
-    #hideBody; // HOLY!!!
-    #showBody; // Lewd
+    #hideBody;
+    #showBody;
 
     #updateInstance() {
-        this.#instance = new this.#dictionary[window.location.pathname];
+        this.#instance = new this.#dictionary[this.#location];
+    }
+
+    #updateLocation() {
+        this.#location = body.dataset.location;
     }
 
     loadPage(evt, page) {
@@ -29,6 +34,8 @@ class God {
                     // Update the history stack and URL
                     window.history.pushState({prev: window.location.pathname}, null, page);
 
+                    body.dataset.location = _document.body.dataset.location;
+                    this.#updateLocation();
                     this.#updateInstance();
                     
                     if (evt) {
@@ -50,10 +57,11 @@ class God {
         };
 
         this.#dictionary = {
-            '/': IndexHandler,
-            "/index.html": IndexHandler,
-            "/about.html": Map
+            "index": IndexHandler,
+            "about": AboutHandler
         };
+
+        this.#updateLocation();
 
         this.#updateInstance();
 
