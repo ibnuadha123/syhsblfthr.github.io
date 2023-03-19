@@ -14,7 +14,7 @@
 
 body {
     .hide {
-        @apply animation-[.25s_body_loading_ease-out_forwards];
+        @apply animate-[.25s_body_loading_ease-out_forwards];
 
         @keyframes body-loading {
             0%, 100% {

@@ -89,6 +89,8 @@ class IndexHandler {
     #acontent;
     #moreaboutme;
     #intersectionObserver;
+    #welcomePage;
+    #content;
 
     #typeEffect = (string, duration, element) => {
         let index = 0;
@@ -101,30 +103,26 @@ class IndexHandler {
         };
 
     popstateHandler(data) {
-        fetch("index.html").then((response) => {
-            const parser = new DOMParser;
-            response.text().then((text) => {
-                const _document = parser.parseFromString(text);
-                _document.getElementById("welcome-page").classList.add("hide");
-                body.innerHTML = _document.body.innerHTML;
-                document.title = _document.title;
-            });
-        });
-        this.#acontent.scroll(0, data.ypos);
+        this.#welcomePage.classList.add("hide");
+        this.#content.classList.add("show");
+        this.#acontent.scroll(0, data.scrollY);
     }
-        
+
+    saveState() {
+        window.history.pushState({scrollY: this.#acontent.scrollTop}, null);
+    }
+
     constructor() {
-        this.#acontent = document.getElementById("")
-        window.history.pushState({scrollY: 0}, null, "index.html");
+        this.#acontent = document.getElementById("acontent");
         
-        const welcomePage = document.getElementById("welcome-page");
-        const content = document.getElementById("content");
+        this.#welcomePage = document.getElementById("welcome-page");
+        this.#content = document.getElementById("content");
         
-        this.#typeEffect("Welcome", 750, welcomePage.firstElementChild);
+        this.#typeEffect("Welcome", 750, this.#welcomePage.firstElementChild);
 
         const clickListener = () => {
-            welcomePage.classList.add("hide");
-            content.classList.add("show");
+            this.#welcomePage.classList.add("hide");
+            this.#content.classList.add("show");
             document.body.removeEventListener("click", clickListener);
         }
         
@@ -132,7 +130,7 @@ class IndexHandler {
         
         this.#moreaboutme = document.getElementById("moreaboutme");
         this.#moreaboutme.onclick = () => {
-            god.loadPage("about.html");
+            god.loadPage(null, "about.html");
         }
 
         this.#intersectionObserver = new IndexIntersectionObserver;

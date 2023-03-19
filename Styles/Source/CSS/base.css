@@ -1,0 +1,22 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@layer base {
+  :root {
+    scrollbar-color: #FFF transparent;
+  }
+  body {
+    @apply m-0 w-full h-screen overflow-hidden text-white bg-black font-mono;
+  }
+}
+body .hide {
+  @apply animate-[.25s_body_loading_ease-out_forwards];
+}
+@keyframes body-loading {
+  0%, 100% {
+    @apply opacity-100;
+  }
+  50% {
+    @apply opacity-50;
+  }
+}

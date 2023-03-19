@@ -7,19 +7,21 @@ const body = document.body;
 class God {
     #dictionary;
     #instance;
+    #hideBody; // HOLY!!!
+    #showBody; // Lewd
 
     #updateInstance() {
         this.#instance = new this.#dictionary[window.location.pathname];
     }
 
-    loadPage(page) {
-        this.#instance.destroy();
+    loadPage(evt, page) {
+        if (this.#instance.saveState !== undefined)
+            this.#instance.saveState();
+        if (this.#instance.destroy !== undefined)
+            this.#instance.destroy();
 
         // Execute loading animation
-        body.classList.remove("loading");
-        body.classList.add("loading");
-
-        setTimeout(() => {
+        this.#hideBody().finished.then(() => {
             fetch(page).then((response) => {
                 const parser = new DOMParser;
                 response.text().then((text) => {
@@ -30,12 +32,24 @@ class God {
                     window.history.pushState(null, null, page);
 
                     this.#updateInstance();
-                })
+
+                    if (evt !== null)
+                        this.#instance.popstateHandler(evt.state);
+                    this.#showBody();
+                });
             });
-        }, 250 / 2); // (250 / 2)ms is when body's opacity = 0
+        });
     }
 
     constructor() {
+        this.#hideBody = () => {
+            return body.animate({opacity: 0}, {duration: 125, fill: "forwards"});
+        };
+
+        this.#showBody = () => {
+            return body.animate({opacity: 1}, {duration: 125, fill: "forwards"});
+        };
+
         this.#dictionary = {
             '/': IndexHandler,
             "/index.html": IndexHandler,
@@ -45,9 +59,8 @@ class God {
         this.#updateInstance();
 
         window.onpopstate = (evt) => {
-            this.#updateInstance();
-            this.#instance.popstateHandler(evt);
-        };
+            this.loadPage(evt, "index.html");
+        }
     }
 };
 
