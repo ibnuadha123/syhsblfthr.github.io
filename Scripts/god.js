@@ -15,10 +15,8 @@ class God {
     }
 
     loadPage(evt, page) {
-        if (this.#instance.saveState !== undefined)
-            this.#instance.saveState();
-        if (this.#instance.destroy !== undefined)
-            this.#instance.destroy();
+        this.#instance.saveState?.();
+        this.#instance.destroy?.();
 
         // Execute loading animation
         this.#hideBody().finished.then(() => {
@@ -29,12 +27,13 @@ class God {
                     body.innerHTML = _document.body.innerHTML; // Load content
                     document.title = _document.title; // Update title
                     // Update the history stack and URL
-                    window.history.pushState(null, null, page);
+                    window.history.pushState({prev: window.location.pathname}, null, page);
 
                     this.#updateInstance();
-
-                    if (evt !== null)
+                    
+                    if (evt) {
                         this.#instance.popstateHandler(evt.state);
+                    }
                     this.#showBody();
                 });
             });
