@@ -14,7 +14,7 @@ class AboutNavigationHandler {
                 window.history.back();
             }
             else {
-                god.loadPage(null, "index.html");
+                god.loadPage(null, "index");
             }
         };
     }

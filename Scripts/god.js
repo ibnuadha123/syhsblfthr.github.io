@@ -3,6 +3,7 @@
 
 const head = document.head;
 const body = document.body;
+const style = document.styleSheets[1];
 
 class God {
     #location;
@@ -10,6 +11,7 @@ class God {
     #instance;
     #hideBody;
     #showBody;
+    #styleSheet;
 
     #updateInstance() {
         this.#instance = new this.#dictionary[this.#location];
@@ -19,20 +21,31 @@ class God {
         this.#location = body.dataset.location;
     }
 
-    loadPage(evt, page) {
+    #updateStyleSheet(name) {
+        fetch(`Styles/Compiled/${name}.css`).then((response) => {
+            response.text().then((text) => {
+                this.#styleSheet.replaceSync(text);
+            });
+        });
+    }
+
+    loadPage(evt, name) {
         this.#instance.saveState?.();
         this.#instance.destroy?.();
 
+        const html = name.concat(".html");
+
         // Execute loading animation
         this.#hideBody().finished.then(() => {
-            fetch(page).then((response) => {
+            this.#updateStyleSheet(name);
+            fetch(html).then((response) => {
                 const parser = new DOMParser;
                 response.text().then((text) => {
                     const _document = parser.parseFromString(text, "text/html");
                     body.innerHTML = _document.body.innerHTML; // Load content
                     document.title = _document.title; // Update title
                     // Update the history stack and URL
-                    window.history.pushState({prev: window.location.pathname}, null, page);
+                    window.history.pushState({prev: window.location.pathname}, null, html);
 
                     body.dataset.location = _document.body.dataset.location;
                     this.#updateLocation();
@@ -65,8 +78,14 @@ class God {
 
         this.#updateInstance();
 
+        this.#styleSheet = new CSSStyleSheet;
+
+        document.adoptedStyleSheets = [this.#styleSheet];
+
+        this.#updateStyleSheet(this.#location);
+
         window.onpopstate = (evt) => {
-            this.loadPage(evt, "index.html");
+            this.loadPage(evt, "index");
         }
     }
 };

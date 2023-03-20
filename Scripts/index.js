@@ -130,7 +130,7 @@ class IndexHandler {
         
         this.#moreaboutme = document.getElementById("moreaboutme");
         this.#moreaboutme.onclick = () => {
-            god.loadPage(null, "about.html");
+            god.loadPage(null, "about");
         }
 
         this.#intersectionObserver = new IndexIntersectionObserver;
