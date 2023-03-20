@@ -2,16 +2,24 @@
     @apply animate-[.5s_titleShow_ease-out_forwards] translate-y-[15%] opacity-0;
 }
 
-#title button.active {
-    @apply pointer-events-auto;
+.content-navigation {
+    @apply opacity-30 border border-white p-4 transition-colors pointer-events-none;
 }
 
-#title button.active:hover {
+.content-navigation.active {
+    @apply pointer-events-auto opacity-100;
+}
+
+.content-navigation:hover {
     @apply bg-white text-black;
 }
 
 .aboutContentWrapper {
-    @apply w-full h-screen grid;
+    @apply w-full h-screen grid opacity-0 absolute w-1/2 [transition:.15s_opacity_ease-out];
+}
+
+.aboutContentWrapper.active {
+    @apply opacity-100;
 }
 
 .aboutContentContainer {
@@ -31,7 +39,7 @@
 }
 
 .skill {
-    @apply flex flex-col;
+    @apply flex flex-col opacity-0 [transition:.15s_opacity_ease-out];
 }
 
 @keyframes titleShow {
