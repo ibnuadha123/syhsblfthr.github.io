@@ -8,72 +8,83 @@
     <link rel="stylesheet" type="text/css" href="Styles/Compiled/base.css">
     <title>About Me</title>
 </head>
-<body data-location="about">
-    <div class="flex w-full h-full">
-        <div class="w-1/2 h-full grid relative">
-            <div id="navigation" class="bg-neutral-800 w-3/12 h-[5%] flex gap-x-5 justify-center items-center justify-self-center absolute mt-10 p-10 rounded">
-                <button class="">HOME</button>
-                <button class="">PORTFOLIO</button>
-            </div>
-            <div id="title" class="justify-self-center flex flex-col gap-y-4 self-center items-center">
-                <span class="text-7xl text-center">About Me</span>
-                <hr class="w-4/5">
-                <span class="text-5xl text-center">Personal Information</span>
-                <div class="grid grid-cols-[2fr_1fr_1fr_2fr] gap-x-10">
-                    <div></div>
-                    <button class="content-navigation">PREVIOUS</button>
-                    <button class="content-navigation active">NEXT</button>
-                    <div></div>
-                </div>
-            </div>
-        </div>
-        <div class="w-1/2 h-screen grid" id="aboutContents">
-            <div class="aboutContentWrapper">
-                <div class="aboutContentContainer">
-                    <div class="personalInfo">
-                        <span class="personalInfoName">Name</span>
-                        <span class="personalInfoContent">Syahsabili Fithra Nasution</span>
-                    </div>
-                    <div class="personalInfo">
-                        <span class="personalInfoName">Birthdate</span>
-                        <span class="personalInfoContent">September 21, 2007</span>
-                    </div>
-                    <div class="personalInfo">
-                        <span class="personalInfoName">Current School</span>
-                        <span class="personalInfoContent">SMK Telkom Medan 1</span>
-                    </div>
-                    <div class="personalInfo">
-                        <span class="personalInfoName">Current Status</span>
-                        <span class="personalInfoContent">Maidenless &#x1F62D;</span>
+<body style="opacity: 0; background-color: #000;">
+    <div data-location="about">
+        <div class="flex w-full h-full">
+            <div class="w-1/2 h-full grid">
+                <div id="title" class="justify-self-center flex flex-col gap-y-4 self-center items-center">
+                    <span class="text-7xl text-center">About Me</span>
+                    <hr class="w-4/5">
+                    <span id="page-name" class="text-5xl text-center">Personal Information</span>
+                    <div class="grid grid-cols-[2fr_1fr_1fr_2fr] gap-x-10">
+                        <div></div>
+                        <button class="content-navigation">PREVIOUS</button>
+                        <button class="content-navigation active">NEXT</button>
+                        <div></div>
                     </div>
                 </div>
             </div>
-            <div class="aboutContentWrapper">
-                <div class="aboutContentContainer">
-                    <div class="skill">
-                        <span class="text-4xl">C/C++</span>
-                        <div class="border border-white rounded">
-                            <div data-fill="60%" class="w-0 h-[1.5rem] bg-white"></div>
+            <div class="w-1/2 h-full grid relative" id="aboutContents">
+                <div class="aboutContentWrapper" data-name="Personal Information">
+                    <div class="aboutContentContainer">
+                        <div class="personalInfo">
+                            <span class="personalInfoName">Name</span>
+                            <span class="personalInfoContent">Syahsabili Fithra Nasution</span>
                         </div>
-                        <span class="self-end">60/100</span>
+                        <div class="personalInfo">
+                            <span class="personalInfoName">Birthdate</span>
+                            <span class="personalInfoContent">September 21, 2007</span>
+                        </div>
+                        <div class="personalInfo">
+                            <span class="personalInfoName">Current School</span>
+                            <span class="personalInfoContent">SMK Telkom Medan 1</span>
+                        </div>
+                        <div class="personalInfo">
+                            <span class="personalInfoName">Current Status</span>
+                            <span class="personalInfoContent">Maidenless &#x1F62D;</span>
+                        </div>
                     </div>
-                    <div class="skill">
-                        <span class="text-4xl">JavaScript</span>
-                        <div class="border border-white rounded">
-                            <div data-fill="70%" class="w-0 h-[1.5rem] bg-white"></div>
+                </div>
+                <div class="aboutContentWrapper" data-name="Skills">
+                    <div class="aboutContentContainer">
+                        <div class="skill">
+                            <span class="text-4xl">C/C++</span>
+                            <div class="border border-white rounded">
+                                <div data-fill="60%" class="w-0 h-[1.5rem] bg-white"></div>
+                            </div>
+                            <span class="self-end">60/100</span>
                         </div>
-                        <span class="self-end">70/100</span>
-                    </div>
-                    <div class="skill">
-                        <span class="text-4xl">Lua</span>
-                        <div class="border border-white rounded">
-                            <div data-fill="60%" class="w-0 h-[1.5rem] bg-white"></div>
+                        <div class="skill">
+                            <span class="text-4xl">JavaScript</span>
+                            <div class="border border-white rounded">
+                                <div data-fill="70%" class="w-0 h-[1.5rem] bg-white"></div>
+                            </div>
+                            <span class="self-end">70/100</span>
                         </div>
-                        <span class="self-end">60/100</span>
+                        <div class="skill">
+                            <span class="text-4xl">Lua</span>
+                            <div class="border border-white rounded">
+                                <div data-fill="60%" class="w-0 h-[1.5rem] bg-white"></div>
+                            </div>
+                            <span class="self-end">60/100</span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+	<footer class="grid h-[10%] border-white border-t">
+		<div class="flex place-self-center gap-x-[5vw]">
+			<div data-pageIndex="index">
+				<span>HOME</span>
+			</div>
+			<div data-pageIndex="about" class="active">
+				<span>ABOUT</span>
+			</div>
+			<div data-pageIndex="asadasdadasd">
+				<span>MEDIA</span>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>

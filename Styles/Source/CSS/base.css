@@ -1,22 +1,28 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-@layer base {
-  :root {
-    scrollbar-color: #FFF transparent;
-  }
-  body {
-    @apply m-0 w-full h-screen overflow-hidden text-white bg-black font-mono;
-  }
+:root {
+  scrollbar-color: #FFF transparent;
 }
-body .hide {
-  @apply animate-[.25s_body_loading_ease-out_forwards];
+body {
+  @apply invisible m-0 w-full h-screen overflow-hidden text-white bg-black font-mono;
 }
-@keyframes body-loading {
-  0%, 100% {
-    @apply opacity-100;
-  }
-  50% {
-    @apply opacity-50;
-  }
+body > div:first-child {
+  @apply h-[90%] w-full;
+}
+img {
+  @apply max-h-[100%]
+}
+footer > div > div {
+  cursor: pointer;
+  user-select: none;
+}
+footer span {
+  @apply text-neutral-400 [transition:.15s_color];
+}
+footer [data-pageIndex]:hover {
+  @apply text-neutral-600;
+}
+footer .active > span {
+  @apply text-white;
+}
+footer .active:hover > span {
+  @apply text-neutral-500;
 }

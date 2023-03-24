@@ -22,7 +22,7 @@ class NavigationHandler {
     constructor() {
         this.#currentIndex = 0;
         this.#navigation = document.querySelector("aside");
-        this.#navigationItems = this.#navigation.firstElementChild.children;
+        this.#navigationItems = this.#navigation.firstElementChild.children[1].children;
         this.#acontentItems = document.getElementById("acontent").children;
 
         Array.from(this.#navigationItems).forEach((item, index) => {
@@ -47,6 +47,7 @@ class IndexIntersectionObserver {
     #handleEntry(entry) {
         const {target} = entry;
         const {dataset} = target;
+        console.log(entry.intersectionRatio);
         if (entry.intersectionRatio >= (+dataset.intersectionratio)) {
             let actions = Array.from(dataset.intersectionactions);
             for (let actionsIndex = 0; actionsIndex < actions.length; ++actionsIndex) {
@@ -63,7 +64,7 @@ class IndexIntersectionObserver {
         }
     }
 
-    constructor() {
+    constructor(acontent) {
         this.#navigationHandler = new NavigationHandler;
 
         this.#observer = new IntersectionObserver(
@@ -71,10 +72,11 @@ class IndexIntersectionObserver {
                 entries.forEach((entry) => {
                     this.#handleEntry(entry);
                 });
-            }, {threshold: [0, 0.25, 0.5, 0.75, 1]}
+            }, {threshold: [0, 0.25, 0.5, 0.75, 1], root: acontent}
         );
 
         Array.from(document.getElementsByClassName("intersection-observe")).forEach((element) => {
+            console.log(element);
             this.#observer.observe(element);
         });
     }
@@ -102,14 +104,14 @@ class IndexHandler {
             }, duration / stringLength);
         };
 
-    popstateHandler(data) {
+    cachedHandler(data) {
         this.#welcomePage.classList.add("hide");
         this.#content.classList.add("show");
         this.#acontent.scroll(0, data.scrollY);
     }
 
     saveState() {
-        window.history.pushState({scrollY: this.#acontent.scrollTop}, null);
+        worldHistory.set("index", {scrollY: this.#acontent.scrollTop});
     }
 
     constructor() {
@@ -119,7 +121,7 @@ class IndexHandler {
         this.#content = document.getElementById("content");
         
         this.#typeEffect("Welcome", 750, this.#welcomePage.firstElementChild);
-
+        
         const clickListener = () => {
             this.#welcomePage.classList.add("hide");
             this.#content.classList.add("show");
@@ -130,10 +132,10 @@ class IndexHandler {
         
         this.#moreaboutme = document.getElementById("moreaboutme");
         this.#moreaboutme.onclick = () => {
-            god.loadPage(null, "about");
+            god.loadPage("about");
         }
-
-        this.#intersectionObserver = new IndexIntersectionObserver;
+        
+        this.#intersectionObserver = new IndexIntersectionObserver(this.#acontent);
     }
 
 

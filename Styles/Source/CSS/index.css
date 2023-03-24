@@ -1,6 +1,7 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
 ::selection {
   @apply text-black bg-white;
 }
@@ -35,11 +36,6 @@ button {
 #acontent::webkit-scrollbar-thumb:hover {
   @apply bg-zinc-600;
 }
-
-#who.intersection-animate > div {
-  @apply opacity-100 translate-y-0;
-}
-
 #who.intersection-animate > div {
   @apply opacity-100 translate-y-0;
 }

@@ -1,3 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
 #title {
     @apply animate-[.5s_titleShow_ease-out_forwards] translate-y-[15%] opacity-0;
 }
@@ -15,7 +19,7 @@
 }
 
 .aboutContentWrapper {
-    @apply w-full h-screen grid opacity-0 absolute w-1/2 [transition:.15s_opacity_ease-out];
+    @apply w-full h-full grid opacity-0 absolute [transition:.15s_opacity_ease-out];
 }
 
 .aboutContentWrapper.active {

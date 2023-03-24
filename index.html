@@ -8,50 +8,79 @@
 	<link rel="stylesheet" type="text/css" href="Styles/Compiled/base.css">
 	<title data-role="pproperty">Homepage</title>
 </head>
-<body data-location="index">
-	<div class="w-full h-full absolute z-[2] grid absolute bg-black [transition:.25s_opacity_ease-out,visibility_.25s]" id="welcome-page">
-		<h1 class="place-self-center text-8xl"></h1>
-		<span class="justify-self-center absolute self-end text-gray-500 opacity-0 animate-[1s_ctc-animation_.75s_ease-out_alternate_infinite] mb-5">Click to continue...</span>
-	</div>
-	<div class="h-screen top-container w-full absolute bg-black flex" id="content">
-		<!-- Navigation Bar -->
-		<aside class="border-l-transparent border-white border rounded-r-3xl w-[10%] h-[80vh] self-center transform-x-100 [transition:.5s_transform_ease-out,.5s_opacity_ease-out] 2xl:border-2">
-			<!-- Navigation Items Wrapper -->
-			<div class="flex flex-col items-center mt-[20%] mr-[12.5px] gap-y-2">
-				<button href="#home" class="nav-active [opacity-100 text-4xl cursor-pointer hover:text-neutral-700 text-neutral-400 bg-transparent [transition:.1s_color_ease-out] border-transparent">Home</button>
-				<button href="#who" class="opacity-100 text-4xl cursor-pointer hover:text-neutral-700 text-neutral-400 bg-transparent [transition:.1s_color_ease-out] border-transparent">About</button>
-			</div>
-		</aside>
-		<!-- Actual Content -->
-		<div id="acontent" class="overflow-y-scroll h-screen w-full [scrollbar-color:#FFF_transparent]">
-			<div class="h-screen w-full grid intersection-observe" id="home" data-intersectionRatio="0.5" data-intersectionActions="0" data-navigationIndex="0" data-intersectionOnce='0'>
-				<div class="h-full w-11/12 flex place-self-center items-center justify-between">
-					<div id="home-text" class="flex flex-col">
-						<span class="text-4xl leading-relaxed font-bold">Welcome!</span>
-						<span class="text-3xl">My name is Syahsabili Fithra Nasution</span>
+<body>
+	<div data-location="index">
+		<div class="w-full h-full absolute z-[2] grid absolute bg-black [transition:.25s_opacity_ease-out,visibility_.25s]" id="welcome-page">
+			<h1 class="place-self-center text-8xl"></h1>
+			<span class="justify-self-center absolute self-end text-gray-500 opacity-0 animate-[1s_ctc-animation_.75s_ease-out_alternate_infinite] mb-5">Click to continue...</span>
+		</div>
+		<div class="h-full top-container w-full bg-black flex" id="content">
+			<!-- Navigation Bar -->
+			<aside class="w-1/5 h-full grid border-white border-r">
+				<div class="h-4/5 w-4/5 grid place-self-center grid-rows-[1fr_4fr_1fr]">
+					<div class="flex w-full h-full">
+						<div class="w-[50%] h-full grid">
+							<img class="hover:opacity-50 [transition:.15s_opacity] cursor-pointer place-self-center object-contain h-1/2 w-1/2" src="Assets/light.png">
+						</div>
+						<div class="w-[50%] h-full grid">
+							<img class="hover:opacity-50 [transition:.15s_opacity] cursor-pointer place-self-center object-contain h-1/2 w-1/2" src="Assets/dark.png">
+						</div>
 					</div>
-					<div id="home-img" class="w-2/5 h-4/5 relative">
-						<img class="rounded max-w-full max-h-full absolute" src="Assets/Me-ed.jpg">
+					<div class="flex flex-col place-self-center text-center text-2xl">
+						<span>Welcome</span>
+						<span>Who am I?</span>
+					</div>
+					<div class="flex justify-center items-center">
+						<div class="w-2/5 h-2/5 flex justify-center">
+							<img class="cursor-pointer hover:opacity-50 [transition:.15s_opacity]" src="Assets/github-mark/github-mark-white.svg">
+						</div>
 					</div>
 				</div>
-			</div>
-			<div class="h-screen w-full grid intersection-observe" id="who" data-intersectionRatio="0.5" data-intersectionActions="01" data-navigationIndex="1" data-intersectionOnce='0'>
-				<div class="w-4/5 h-4/5 place-self-center grid place-items-center grid-rows-[1fr_2fr_1fr] opacity-0 translate-y-[5%] [transition:1s_transform,1s_opacity]">
-					<div class="text-6xl font-bold">
-						<span>WHO AM I?</span>
+			</aside>
+			<!-- Actual Content -->
+			<div id="acontent" class="overflow-y-scroll h-full w-full [scrollbar-color:#FFF_transparent] overflow-y-hidden">
+				<div class="h-full w-full grid" id="home" data-intersectionRatio="0.5" data-intersectionActions="0" data-navigationIndex="0" data-intersectionOnce='0'>
+					<div class="h-full w-11/12 flex place-self-center items-center justify-between">
+						<div id="home-text" class="flex flex-col">
+							<span class="text-4xl leading-relaxed font-bold">Welcome!</span>
+							<span class="text-3xl">My name is Syahsabili Fithra Nasution</span>
+						</div>
+						<div id="home-img" class="w-2/5 h-4/5 relative">
+							<img class="rounded max-w-full max-h-full absolute" src="Assets/Me-ed.png">
+						</div>
 					</div>
-					<div class="text-5xl text-center leading-relaxed p-5 bg-neutral-900 rounded-3xl">
-						<span>I am a man of many interest.</span>
-						<br>
-						<span>One of them is <span id="interest">Computer Science</span>.</span>
-					</div>
-					<div class="place-self-end text-1xl">
-						<button id="moreaboutme" class="text-neutral-600 hover:text-neutral-300 [transition:.1s_color_ease-out]">more about me.</button>
+				</div>
+				<div class="h-full w-full grid intersection-observe" id="who" data-intersectionRatio="0.5" data-intersectionActions="01" data-navigationIndex="1" data-intersectionOnce='0'>
+					<div class="w-4/5 h-4/5 place-self-center grid place-items-center grid-rows-[1fr_2fr_1fr] opacity-0 translate-y-[5%] [transition:1s_transform,1s_opacity]">
+						<div class="text-6xl font-bold">
+							<span>WHO AM I?</span>
+						</div>
+						<div class="text-5xl text-center leading-relaxed p-5 bg-neutral-900 rounded-3xl">
+							<span>I am a man of many interest.</span>
+							<br>
+							<span>One of them is <span id="interest">Computer Science</span>.</span>
+						</div>
+						<div class="place-self-end text-1xl">
+							<button id="moreaboutme" class="text-neutral-600 hover:text-neutral-300 [transition:.1s_color_ease-out]">more about me.</button>
+						</div>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
+	<footer class="grid h-[10%] border-white border-t">
+		<div class="flex place-self-center gap-x-[5vw]">
+			<div data-pageIndex="index" class="active">
+				<span>HOME</span>
+			</div>
+			<div data-pageIndex="about">
+				<span>ABOUT</span>
+			</div>
+			<div data-pageIndex="asadasdadasd">
+				<span>MEDIA</span>
+			</div>
+		</div>
+	</footer>
 </body>
 </html>
 	

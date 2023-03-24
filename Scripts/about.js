@@ -1,30 +1,18 @@
-class AboutNavigationHandler {
-    #navigation;
-    #home;
-    #portfolio;
-
-    constructor() {
-        this.#navigation = document.getElementById("navigation");
-        this.#home = this.#navigation.firstElementChild;
-        this.#portfolio = this.#home.nextElementSibling;
-
-        this.#home.onclick = () => {
-            const prevPage = (window.history.state?.prev) ?? null;
-            if (prevPage === '/' || prevPage === "/index.html") {
-                window.history.back();
-            }
-            else {
-                god.loadPage(null, "index");
-            }
-        };
-    }
-};
-
 class AboutContents {
     #contentsContainer;
     #contents;
+    #pageName;
     #contentNavigationIndex;
     #animations;
+
+    constructor() {
+        this.#contentsContainer = document.getElementById("aboutContents");
+        this.#contents = this.#contentsContainer.children;
+        this.#contentNavigationIndex = 0;
+        this.#pageName = document.getElementById("page-name");
+
+        this.#initializeAnimations();
+    }
 
     init() {
         this.#enableContent(0);
@@ -44,6 +32,19 @@ class AboutContents {
         this.#enableContent(this.#contentNavigationIndex);
         if (this.#contentNavigationIndex === this.#contents.length - 1)
             btn.classList.remove("active");
+    }
+
+    #changeName(newName) {
+        const duration = 150 / 2;
+        const options = { duration: duration, easing: "ease-out", fill: "forwards" };
+        this.#pageName.animate({
+            opacity: [1, 0]
+        }, options).finished.then(() => {
+            this.#pageName.textContent = newName;
+            this.#pageName.animate({
+                opacity: [0, 1]
+            }, options);
+        });
     }
 
     #disableContent(index) {
@@ -66,7 +67,9 @@ class AboutContents {
     }
 
     #enableContent(index) {
-        this.#contents[index].classList.add("active");
+        const content = this.#contents[index];
+        this.#changeName(content.dataset.name);
+        content.classList.add("active");
         switch (index) {
             case 0:
                 this.#animations[0].forEach((animation) => {
@@ -112,23 +115,13 @@ class AboutContents {
                 this.#animations[1].push([skillAnimation, thumbAnimation]);
             });
     }
-
-    constructor() {
-        this.#contentsContainer = document.getElementById("aboutContents");
-        this.#contents = this.#contentsContainer.children;
-        this.#contentNavigationIndex = 0;
-
-        this.#initializeAnimations();
-    }
 };
 
 class AboutHandler {
-    #aboutNavigationHandler;
     #contentNavigation;
     #aboutContents;
 
     constructor() {
-        this.#aboutNavigationHandler = new AboutNavigationHandler;
         this.#contentNavigation = document.getElementsByClassName("content-navigation");
         this.#aboutContents = new AboutContents;
 
