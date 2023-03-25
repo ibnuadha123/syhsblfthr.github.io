@@ -2,13 +2,40 @@
   scrollbar-color: #FFF transparent;
 }
 body {
-  @apply invisible m-0 w-full h-screen overflow-hidden text-white bg-black font-mono;
+  @apply w-full h-screen overflow-hidden text-white bg-black font-mono m-0;
 }
-body > div:first-child {
-  @apply h-[90%] w-full;
+body > div[data-location] {
+  @apply h-[90%] w-full opacity-0;
+}
+#loading-page {
+  @apply absolute z-10 grid place-items-center h-[90%] w-full bg-black opacity-100 visible;
+}
+#loading-page.show {
+  @apply opacity-100;
+}
+#loading-page > div {
+  @apply w-[20%] h-[10%] flex flex-col;
+}
+#loading-page > div > span {
+  @apply text-4xl text-center;
+}
+#loading-page > div > div {
+  @apply w-full h-1/2 overflow-hidden rounded border border-white;
+}
+#loading-progress {
+  @apply bg-white w-0 h-full;
+  transition: .25s width;
 }
 img {
   @apply max-h-[100%]
+}
+footer {
+  @apply grid h-[calc(10%-1px)] w-full border-white border-t absolute bg-black;
+  bottom: 0;
+  z-index: 500;
+}
+footer > div {
+  @apply flex place-self-center gap-x-[5vw];
 }
 footer > div > div {
   cursor: pointer;

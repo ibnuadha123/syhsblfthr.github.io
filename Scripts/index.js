@@ -47,7 +47,6 @@ class IndexIntersectionObserver {
     #handleEntry(entry) {
         const {target} = entry;
         const {dataset} = target;
-        console.log(entry.intersectionRatio);
         if (entry.intersectionRatio >= (+dataset.intersectionratio)) {
             let actions = Array.from(dataset.intersectionactions);
             for (let actionsIndex = 0; actionsIndex < actions.length; ++actionsIndex) {
@@ -76,7 +75,6 @@ class IndexIntersectionObserver {
         );
 
         Array.from(document.getElementsByClassName("intersection-observe")).forEach((element) => {
-            console.log(element);
             this.#observer.observe(element);
         });
     }
@@ -94,16 +92,6 @@ class IndexHandler {
     #welcomePage;
     #content;
 
-    #typeEffect = (string, duration, element) => {
-        let index = 0;
-        const stringLength = string.length;
-        let interval = setInterval(() => {
-            element.textContent += string[index++];
-            if (index === stringLength)
-                clearInterval(interval);
-            }, duration / stringLength);
-        };
-
     cachedHandler(data) {
         this.#welcomePage.classList.add("hide");
         this.#content.classList.add("show");
@@ -116,19 +104,7 @@ class IndexHandler {
 
     constructor() {
         this.#acontent = document.getElementById("acontent");
-        
-        this.#welcomePage = document.getElementById("welcome-page");
         this.#content = document.getElementById("content");
-        
-        this.#typeEffect("Welcome", 750, this.#welcomePage.firstElementChild);
-        
-        const clickListener = () => {
-            this.#welcomePage.classList.add("hide");
-            this.#content.classList.add("show");
-            document.body.removeEventListener("click", clickListener);
-        }
-        
-        document.body.addEventListener("click", clickListener);
         
         this.#moreaboutme = document.getElementById("moreaboutme");
         this.#moreaboutme.onclick = () => {

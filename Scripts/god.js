@@ -1,8 +1,74 @@
 // Single Page Application Navigation //
 "use strict";
 
-const content = document.body.firstElementChild;
+const content = document.querySelector("[data-location]");
 const style = document.styleSheets[1];
+
+class LoadingScreen {
+    #element;
+    #progress;
+
+    show() {
+        content.animate({ opacity: 0 }, { fill: "forwards" });
+        this.#element.animate({ opacity: 1, visibility: "visible" }, { fill: "forwards" });
+    }
+
+    async hide() {
+        return new Promise((resolve) => {
+            content.animate({ opacity: [0, 1] }, { duration: 500, fill: "forwards" });
+            this.#element.animate({ opacity: [1, 0], visibility: "hidden" }, { duration: 100, delay: 750, fill: "forwards" }).finished.then(() => {
+                this.#progress.style.width = "0%";
+                resolve();
+            });
+        });
+    }
+    
+    track(responses) {
+        // Reset progress
+        console.log(this.#progress.style.width);
+        return new Promise(async (resolve) => {
+            // total size to download
+            const ContentLength =
+                responses.map(response => parseFloat(response.headers.get("Content-Length")))
+                .reduce((prev, curr) => prev + curr);
+
+            let readers =
+                responses.map(response => response.body.getReader());
+
+            const data = [null, null];
+            let totalDownloaded = 0;
+            do {
+                for (let readersIndex = 0; readersIndex < readers.length; ++readersIndex) {
+                    const stream = await readers[readersIndex].read();
+                    if (stream.done) {
+                        readers[readersIndex] = undefined;
+                        continue;
+                    }
+                    data[readersIndex] = stream.value;
+                    totalDownloaded += data[readersIndex].length;
+                }
+
+                // Clear closed readers
+                readers = readers.filter(reader => reader !== undefined);
+
+                // Render progress
+                this.#progress.style.width = `${100 * totalDownloaded / ContentLength}%`;
+                console.log(100 * totalDownloaded / ContentLength);
+                if (totalDownloaded >= ContentLength)
+                    break;
+            } while (1);
+
+            const decoder = new TextDecoder("utf-8");
+            const domParser = new DOMParser;
+            resolve([decoder.decode(data[0]), domParser.parseFromString(decoder.decode(data[1]), "text/html")]);
+        });
+    }
+
+    constructor() {
+        this.#element = document.getElementById("loading-page");
+        this.#progress = this.#element.querySelector("#loading-progress");
+    }
+};
 
 class WorldHistory {
     #data;
@@ -33,11 +99,10 @@ class God {
     #location;
     #dictionary;
     #instance;
-    #hideContent;
-    #showContent;
     #styleSheet;
     #feet;
     #feetDict;
+    #loadingScreen;
     #activeFooterItem;
 
     #updateInstance() {
@@ -45,7 +110,7 @@ class God {
     }
 
     #updateLocation() {
-        return this.#location = content.dataset.location;
+        this.#location = content.dataset.location;
     }
 
     #updateStyleSheet(name) {
@@ -58,40 +123,30 @@ class God {
         });
     }
 
-    loadPage(name) {
-        this.#enableFoot(this.#feetDict[name]);
+    #hideContent() {
+        return content.animate({opacity: [1, 0]}, {duration: 125, fill: "forwards"});
+    };
 
-        this.#instance.saveState?.();
-        this.#instance.destroy?.();
+    #showContent() {
+        content.animate({opacity: [0, 1]}, {duration: 125, fill: "forwards"});
+    };
 
-        const html = name.concat(".html");
+    async loadPage(name) {
+        const url = `${name}.html`;
+        window.history.replaceState({name: name}, "", url); // For popstate event
+        this.#loadingScreen.show();
 
-        // Execute loading animation
-        this.#hideContent().finished.then(() => {
-            fetch(`Styles/Compiled/${name}.css`).then((response) => {
-                response.text().then((text) => {
-                    this.#styleSheet.replaceSync(text);
-                    fetch(html).then((response) => {
-                        const parser = new DOMParser;
-                        response.text().then((text) => {
-                            const _document = parser.parseFromString(text, "text/html");
-                            const _content = _document.body.firstElementChild;
-                            content.innerHTML = _content.innerHTML; // Load content
-                            document.title = _document.title; // Update title
-                            // Update the history stack and URL
-                            window.history.pushState({name: name}, null, html);
-        
-                            content.dataset.location = _content.dataset.location;
-                            this.#updateLocation();
-                            this.#updateInstance();
-                            
-                            const data = worldHistory.get(name);
-                            if (data !== undefined)
-                                this.#instance.cachedHandler(data);
-                            this.#showContent();
-                        });
-                    });
-                });
+        const css = await fetch(`Styles/Compiled/${name}.css`);
+        const html = await fetch(url);
+
+        this.#loadingScreen.track([css, html]).then((args) => {
+            const _content = args[1].querySelector("[data-location]");
+            content.innerHTML = _content.innerHTML;
+            content.dataset.location = _content.dataset.location;
+            this.#styleSheet.replaceSync(args[0]);
+            this.#loadingScreen.hide().then(() => {
+                this.#updateLocation();
+                this.#updateInstance();
             });
         });
     }
@@ -103,13 +158,12 @@ class God {
     }
 
     constructor() {
-        this.#hideContent = () => {
-            return content.animate({opacity: [1, 0]}, {duration: 125, fill: "forwards"});
-        };
-
-        this.#showContent = () => {
-            return content.animate({opacity: [0, 1]}, {duration: 125, fill: "forwards"});
-        };
+        window.addEventListener("popstate", (evt) => {
+            this.loadPage(evt.state.name);
+        });
+        
+        // Initialize properties
+        this.#loadingScreen = new LoadingScreen;
 
         this.#dictionary = {
             "index": IndexHandler,
@@ -117,31 +171,26 @@ class God {
         };
 
         this.#feet = Array.from(document.querySelector("footer").firstElementChild.children);
-        Array.from(this.#feet).forEach((item, index) => {
-            item.addEventListener("click", () => {
-                this.loadPage(item.dataset.pageindex);
+        this.#feet.forEach((foot, index) => {
+            foot.addEventListener("click", () => {
+                this.loadPage(foot.dataset.pageindex);
                 this.#enableFoot(index);
             });
         });
+        this.#activeFooterItem = this.#feet.find(item => item.classList.contains("active"));
 
         this.#feetDict = {
             "index": 0,
             "about": 1
-        }
+        };
 
-        this.#activeFooterItem = this.#feet.find(item => item.classList.contains("active"));
-        
-        this.#styleSheet = new CSSStyleSheet; // Define the stylesheet object
-        document.adoptedStyleSheets = [this.#styleSheet]; // "Adopt" the stylesheet
-        this.#updateStyleSheet(this.#updateLocation());
-        
-        window.history.replaceState({name: this.#location}, null);
-        
-        window.addEventListener("popstate", (evt) => {
-            this.loadPage(evt.state.name);
-        });
+        this.#updateLocation(); // Get current location
+        // Create stylesheet and adopt it
+        this.#styleSheet = new CSSStyleSheet;
+        document.adoptedStyleSheets = [this.#styleSheet];
+        this.loadPage(this.#location); // Load the page
 
-        window.addEventListener("load", document.body.animate.bind(document.body, { opacity: [0, 1], visibility: "visible" }, { duration: 1000, fill: "forwards" }));
+        window.addEventListener("load", this.#showContent.bind(this));
     }
 };
 

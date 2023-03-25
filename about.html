@@ -8,14 +8,22 @@
     <link rel="stylesheet" type="text/css" href="Styles/Compiled/base.css">
     <title>About Me</title>
 </head>
-<body style="opacity: 0; background-color: #000;">
+<body>
+    <div id="loading-page">
+		<div>
+			<span>LOADING</span>
+			<div>
+				<div id="loading-progress"></div>
+			</div>
+		</div>
+	</div>
     <div data-location="about">
         <div class="flex w-full h-full">
             <div class="w-1/2 h-full grid">
                 <div id="title" class="justify-self-center flex flex-col gap-y-4 self-center items-center">
                     <span class="text-7xl text-center">About Me</span>
                     <hr class="w-4/5">
-                    <span id="page-name" class="text-5xl text-center">Personal Information</span>
+                    <span id="page-name" class="text-5xl text-center opacity-0">Personal Information</span>
                     <div class="grid grid-cols-[2fr_1fr_1fr_2fr] gap-x-10">
                         <div></div>
                         <button class="content-navigation">PREVIOUS</button>

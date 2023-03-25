@@ -39,7 +39,7 @@ class AboutContents {
         const options = { duration: duration, easing: "ease-out", fill: "forwards" };
         this.#pageName.animate({
             opacity: [1, 0]
-        }, options).finished.then(() => {
+        }, { fill: options.fill } ).finished.then(() => {
             this.#pageName.textContent = newName;
             this.#pageName.animate({
                 opacity: [0, 1]
