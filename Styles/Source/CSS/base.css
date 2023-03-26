@@ -20,7 +20,7 @@ body > div[data-location] {
   @apply text-4xl text-center;
 }
 #loading-page > div > div {
-  @apply w-full h-1/2 overflow-hidden rounded border border-white;
+  @apply w-full h-1/2 overflow-hidden rounded border border-white border-solid;
 }
 #loading-progress {
   @apply bg-white w-0 h-full;
@@ -30,7 +30,7 @@ img {
   @apply max-h-[100%]
 }
 footer {
-  @apply grid h-[calc(10%-1px)] w-full border-white border-t absolute bg-black;
+  @apply grid h-[calc(10%-1px)] w-full border-white border-t absolute bg-black [border-top-style:solid];
   bottom: 0;
   z-index: 500;
 }

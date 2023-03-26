@@ -93,8 +93,6 @@ class IndexHandler {
     #content;
 
     cachedHandler(data) {
-        this.#welcomePage.classList.add("hide");
-        this.#content.classList.add("show");
         this.#acontent.scroll(0, data.scrollY);
     }
 
@@ -102,13 +100,12 @@ class IndexHandler {
         worldHistory.set("index", {scrollY: this.#acontent.scrollTop});
     }
 
-    constructor() {
+    constructor(core) {
         this.#acontent = document.getElementById("acontent");
-        this.#content = document.getElementById("content");
         
         this.#moreaboutme = document.getElementById("moreaboutme");
         this.#moreaboutme.onclick = () => {
-            god.loadPage("about");
+            core.loadPage("about");
         }
         
         this.#intersectionObserver = new IndexIntersectionObserver(this.#acontent);
